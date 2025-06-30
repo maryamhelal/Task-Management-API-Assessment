@@ -119,7 +119,7 @@ def delete_task_with_id(task_id: int):
 
         task = session.get(Task, task_id)
         if(not task):
-            return JSONResponse(status_code=200, content="File deleted successfully")
+            return JSONResponse(status_code=200, content="Task deleted successfully")
         else:
             raise HTTPException(status_code = 400, detail = "Could not delete task")
 
@@ -194,6 +194,39 @@ def get_tasks_sorted_with_updated_at():
             return JSONResponse(status_code=200, content=response)
     except Exception as e:
         raise HTTPException(status_code = 400, detail = "An error occured, try again")
+    
+# Update pending tasks to be in progess
+@app.put("/tasks/updateAll/pending")
+def update_tasks_with_pending_status():
+    try:
+        with Session(engine) as session:
+            statement = select(Task).where(Task.status == TaskStatus.pending)
+            tasks = session.exec(statement).all()
+            for task in tasks:
+                task.status = TaskStatus.in_progress
+                session.add(task)
+            session.commit()
+            for task in tasks:
+                session.refresh(task)
+            response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
+            return JSONResponse(status_code=200, content=response)
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")  
+    
+# Delete cancelled tasks
+@app.delete("/tasks/deleteAll/cancelled")
+def delete_tasks_with_cancelled_status():
+    try:
+        with Session(engine) as session:
+            statement = select(Task).where(Task.status == TaskStatus.cancelled)
+            tasks = session.exec(statement).all()
+            for task in tasks:
+                session.delete(task)
+            session.commit()
+            
+            return JSONResponse(status_code=200, content="Cancelled tasks deleted successfully")
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")  
 
 # Delete old database if exists, and create database and sample data
 def main(): 
