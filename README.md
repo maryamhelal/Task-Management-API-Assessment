@@ -30,29 +30,43 @@ pytest
 ```
 
 ### Example API calls (using CMD and cURL)
+
+#### Get all tasks
 ```bash
-# Get all tasks
 curl -X GET http://localhost:8000/tasks
-
-# Create a task
+```
+#### Create a task
+```bash
 curl -X POST http://localhost:8000/tasks -H "Content-Type: application/json" -d "{\"title\": \"Sample Task\", \"priority\": \"high\"}"
+```
 
-# Get a task using id
+#### Get a task using id
+```bash
 curl -X GET http://localhost:8000/tasks/1
+```
 
-# Update a task using id
+#### Update a task using id
+```bash
 curl -X PUT http://localhost:8000/tasks/1 -H "Content-Type: application/json" -d "{\"description\": \"New description\", \"status\": \"completed\"}"
+```
 
-# Delete a task using id
+#### Delete a task using id
+```bash
 curl -X DELETE http://localhost:8000/tasks/1
+```
 
-# Filter tasks using status
+#### Filter tasks using status
+```bash
 curl -X GET http://localhost:8000/tasks/status/pending
+```
 
-# Filter tasks using priority
+#### Filter tasks using priority
+```bash
 curl -X GET http://localhost:8000/tasks/priority/medium
+```
 
-# Filter tasks using status and priority
+#### Filter tasks using status and priority
+```bash
 curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
 ```
 
@@ -60,5 +74,5 @@ curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
 - models.py: contains all models and enums needed for the SQLModel database and Pydantic
 - database.py: creates the database connection and setup
 - database_seeder.py: creates sample task records for testing
-- main.py: contains the api endpoints and runs the application
+- main.py: contains the API endpoints and runs the application
 - test_apis: tests all API endpoints using unit testing
