@@ -150,6 +150,24 @@ def test_get_tasks_with_status_and_priority_returns_empty_array():
     assert response.status_code == 200
     assert response.json() == []
 
+# 26. Test get tasks sorted by title ascendingly
+def test_get_tasks_sort_by_title_returns_success():
+    response = client.get("/tasks/sortBy/title")
+    print(response.json())
+    assert response.status_code == 200
+
+# 27. Test get tasks sorted by due date ascendingly
+def test_get_tasks_sort_by_due_date_returns_success():
+    response = client.get("/tasks/sortBy/dueDate")
+    print(response.json())
+    assert response.status_code == 200
+
+# 28. Test get tasks sorted by updated at descendingly
+def test_get_tasks_sort_by_updated_at_returns_success():
+    response = client.get("/tasks/sortBy/updatedAt")
+    print(response.json())
+    assert response.status_code == 200
+
 # Delete database after tests are done
 @pytest.fixture(scope="session", autouse=True)
 def cleanup_database_after_tests():

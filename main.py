@@ -158,6 +158,42 @@ def get_tasks_with_priority(status: TaskStatus, priority: TaskPriority):
             return JSONResponse(status_code=200, content=response)
     except Exception as e:
         raise HTTPException(status_code = 400, detail = "An error occured, try again")  
+    
+# Sort tasks by ascending task title
+@app.get("/tasks/sortBy/title")
+def get_tasks_sorted_with_title():
+    try:
+        with Session(engine) as session:
+            statement = select(Task).order_by(Task.title.asc())
+            tasks = session.exec(statement).all()
+            response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
+            return JSONResponse(status_code=200, content=response)
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")
+
+# Sort tasks by ascending due date
+@app.get("/tasks/sortBy/dueDate")
+def get_tasks_sorted_with_due_date():
+    try:
+        with Session(engine) as session:
+            statement = select(Task).order_by(Task.due_date.asc())
+            tasks = session.exec(statement).all()
+            response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
+            return JSONResponse(status_code=200, content=response)
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")
+    
+# Sort tasks by descending due date
+@app.get("/tasks/sortBy/updatedAt")
+def get_tasks_sorted_with_updated_at():
+    try:
+        with Session(engine) as session:
+            statement = select(Task).order_by(Task.updated_at.desc())
+            tasks = session.exec(statement).all()
+            response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
+            return JSONResponse(status_code=200, content=response)
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")
 
 # Delete old database if exists, and create database and sample data
 def main(): 
