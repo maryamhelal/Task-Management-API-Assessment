@@ -76,27 +76,32 @@ curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
 
 #### Sort tasks by title ascendingly
 ```bash
-curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+curl -X GET http://localhost:8000/tasks/sortBy/title
 ```
 
 #### Sort tasks by due_date ascendingly
 ```bash
-curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+curl -X GET http://localhost:8000/tasks/sortBy/dueDate
 ```
 
 #### Sort tasks by updated_at descendingly
 ```bash
-curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+curl -X GET http://localhost:8000/tasks/sortBy/updatedAt
 ```
 
 #### Update tasks with status pending to be in_progress
 ```bash
-curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+curl -X PUT http://localhost:8000/tasks/updateAll/pending
 ```
 
 #### Delete cancelled tasks
 ```bash
-curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+curl -X DELETE http://localhost:8000/tasks/deleteAll/cancelled
+```
+
+### Search for text in title/description
+```bash
+curl -X GET http://localhost:8000/tasks/search/string
 ```
 
 ### Project Structure
@@ -104,4 +109,4 @@ curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
 - database.py: creates the database connection and setup
 - database_seeder.py: creates sample task records for testing
 - main.py: contains the API endpoints and runs the application
-- test_apis: tests all API endpoints using unit testing
+- test_apis.py: tests all API endpoints using unit testing

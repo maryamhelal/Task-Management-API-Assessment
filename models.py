@@ -21,8 +21,8 @@ class TaskPriority(Enum):
 # Optional fields: description, updated_at, due_date, assigned_to
 class Task(SQLModel, table = True):
     id: int | None = Field(default = None, primary_key = True)
-    title: str = Field(max_length = 200)
-    description: str | None = Field(default = None, max_length = 1000)
+    title: str = Field(max_length = 200, index = True)
+    description: str | None = Field(default = None, max_length = 1000, index = True)
     status: TaskStatus = Field(default = TaskStatus.pending)
     priority: TaskPriority = Field(default = TaskPriority.medium)
     created_at: datetime = Field(default_factory = lambda: datetime.now(timezone.utc))

@@ -223,10 +223,21 @@ def delete_tasks_with_cancelled_status():
             for task in tasks:
                 session.delete(task)
             session.commit()
-            
             return JSONResponse(status_code=200, content="Cancelled tasks deleted successfully")
     except Exception as e:
         raise HTTPException(status_code = 400, detail = "An error occured, try again")  
+    
+# Search in title and description
+@app.get("/tasks/search/{text}")
+def get_tasks_with_search_words(text: str):
+    try:
+        with Session(engine) as session:
+            statement = select(Task).where(Task.title.contains(text) | Task.description.contains(text))
+            tasks = session.exec(statement).all()
+            response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
+            return JSONResponse(status_code=200, content=response)
+    except Exception as e:
+        raise HTTPException(status_code = 400, detail = "An error occured, try again")
 
 # Delete old database if exists, and create database and sample data
 def main(): 

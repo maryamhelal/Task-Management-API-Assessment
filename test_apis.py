@@ -175,6 +175,11 @@ def test_delete_cancelled_tasks_returns_success():
     response = client.delete("/tasks/deleteAll/cancelled")
     assert response.status_code == 200
 
+# 31. Test search in title/description
+def test_get_tasks_with_text_returns_success():
+    response = client.get("tasks/search/string")
+    assert response.status_code == 200
+
 # Delete database after tests are done
 @pytest.fixture(scope="session", autouse=True)
 def cleanup_database_after_tests():

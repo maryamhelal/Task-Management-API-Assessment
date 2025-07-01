@@ -7,8 +7,8 @@ from sqlmodel import Session
 def create_tasks(): 
     task_1 = Task(title="Task 1", description="This is the first task")
     task_2 = Task(title="Task 2", description="This is the second task", priority=TaskPriority.urgent)
-    task_3 = Task(title="Task 3", status=TaskStatus.cancelled)
-    task_4 = Task(title="Task 4", due_date=datetime.fromisoformat("2025-08-30T04:56:46.161+00:00").astimezone(timezone.utc))
+    task_3 = Task(title="string", status=TaskStatus.cancelled)
+    task_4 = Task(title="Task 4", description="string", due_date=datetime.fromisoformat("2025-08-30T04:56:46.161+00:00").astimezone(timezone.utc))
     task_5 = Task(title="Task 5", assigned_to="Mohamed")
     
     with Session(engine) as session:
