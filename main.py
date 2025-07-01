@@ -149,7 +149,7 @@ def get_tasks_with_priority(priority: TaskPriority):
 
 # Filter tasks based on both status and priority
 @app.get("/tasks/status/{status}/priority/{priority}")
-def get_tasks_with_priority(status: TaskStatus, priority: TaskPriority):
+def get_tasks_with_status_and_priority(status: TaskStatus, priority: TaskPriority):
     try:
         with Session(engine) as session:
             statement = select(Task).where(Task.status == status, Task.priority == priority).limit(10) # Shows only 10 records
