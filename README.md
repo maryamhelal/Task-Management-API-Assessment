@@ -13,9 +13,13 @@ Option 1 (seeds the database automatically, and runs the fastapi server):
 ```bash
 python main.py 
 ```
-Option 2 (no automatic seeding, have to manually run seed endpoint):
+Option 2 (no automatic seeding, you have to manually run seed endpoint):
 ```bash
 fastapi dev main.py 
+```
+Option 3 (using docker, with no automatic seeding, you have to manually run seed endpoint):
+```bash
+docker build -t task-management . ; docker run -it --rm -p 8000:8000 task-management
 ```
 
 ### API Access

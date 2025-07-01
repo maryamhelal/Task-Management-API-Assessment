@@ -53,7 +53,7 @@ async def create_task(task: TaskCreate):
 def get_tasks():
     try:
         with Session(engine) as session:
-            statement = select(Task).offset(0).limit(5) # Shows only 5 records, with an offset of 0 starting from the first record
+            statement = select(Task).offset(0)
             tasks = session.exec(statement).all()
             response = [TaskResponse.model_validate(task, from_attributes=True).model_dump(mode="json") for task in tasks]
             return JSONResponse(status_code=200, content=response)
