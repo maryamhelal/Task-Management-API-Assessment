@@ -70,6 +70,31 @@ curl -X GET http://localhost:8000/tasks/priority/medium
 curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
 ```
 
+#### Sort tasks by title ascendingly
+```bash
+curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+```
+
+#### Sort tasks by due_date ascendingly
+```bash
+curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+```
+
+#### Sort tasks by updated_at descendingly
+```bash
+curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+```
+
+#### Update tasks with status pending to be in_progress
+```bash
+curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+```
+
+#### Delete cancelled tasks
+```bash
+curl -X GET http://localhost:8000/tasks/status/pending/priority/medium
+```
+
 ### Project Structure
 - models.py: contains all models and enums needed for the SQLModel database and Pydantic
 - database.py: creates the database connection and setup
